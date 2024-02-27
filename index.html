@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather app</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <div class="card">
+        <div class="search">
+            <input class="searchBox"  type="text" placeholder="enter your city name">
+            <button class="searchBtn"><img src="./search_8094123.png" alt="" height="20px" width="20px"></button>
+        </div>
+        <div class="weather">
+            <img src="./cloudy_1163657.png" alt="" class="weather-icon" height="100px" width="100px">
+            <h1 class="temp">22°C</h1>
+            <H1 CLASS="city">Monopoly</H1>
+        </div>
+         <div class="details">
+            <div class="col">git init
+                <img src="./water-temperature_12388565.png" alt="" height="50px" width="50px">
+                <p class="humidity">50%</p>
+                <p>Humidity</p>
+            </div>
+            <div class="col">
+                <img src="./wind_1349169.png" alt="" height="50px" width="50px">
+                <p class="wind">15 km/h</p>
+                <p>Wind</p>
+            </div>
+        </div>
+    </div>
+    <script>
+      let apikey = "f3cdafd4528ccc11958bfb6508380131"
+      let apiurl = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q="
+      let searchBox = document.querySelector(".searchBox")
+
+
+      async function checkWeather(city){
+        let  response = await fetch(apiurl + city + `&appid=${apikey}`)
+        let data = await response.json()
+        console.log(data);
+        
+          document.querySelector('.city').innerText=data.name;
+          document.querySelector('.temp').innerText= data.main.temp;
+          document.querySelector('.humidity').innerText=data.main.humidity;
+          document.querySelector('.wind').innerText=Math.round(data.wind.speed);
+      }
+       document.querySelector(".searchBtn").addEventListener('click',()=>{
+        checkWeather(searchBox.value)
+        
+       })
+       
+    </script>
+</body>
+</html>
